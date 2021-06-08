@@ -6,31 +6,88 @@
 	<title>Administrator</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .btn-warning {
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 10px 17px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .btn-warning:hover {
+            background-color: yellow;
+        }
+
+        .btn-danger {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .btn-danger:hover {
+            background-color: darkred;
+        }
+
+        .btn-primary {
+            background-color: blue;
+            color: white;
+            border: none;
+            padding: 10px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            background-color: darkblue;
+        }
+
+        .form-control {
+            position: relative;
+            width: 100%;
+            padding: 7px;
+            font-size: 16px;
+            box-shadow: 5px;
+        }
+    </style>
 </head>
 <body>
 
 	<input type="checkbox" id="nav-toggle">
 	<div class="sidebar">
 		<div class="sidebar-brand">
-			<h2><span class="fa fa-edit"></span> <span>Bearbucks</span> </h2>
+			<h2><span class="fa fa-beer"></span> <span>Bearbucks</span> </h2>
 		</div>
 
 		<div class="sidebar-menu">
 			<ul>
 				<li>
-					<a href="" class="active">
+					<a href="?page=dashboard">
 						<span class="fa fa-dashboard"></span>
 						<span> Home </span>
 					</a>
 				</li>
+                <li>
+                    <a href="?page=kategori">
+                        <span class="fa fa-bars"></span>
+                        <span> Kategori </span>
+                    </a>
+                </li>
 				<li>
-					<a href="">
+					<a href="?page=produk">
 						<span class="fa fa-shopping-cart"></span>
 						<span> Produk </span>
 					</a>
 				</li>
 				<li>
-					<a href="">
+					<a href="?page=">
 						<span class="fa fa-money"></span>
 						<span> Pembayaran </span>
 					</a>
@@ -67,7 +124,7 @@
 			</div>
 
 			<div class="user-wrapper">
-				<img src="img/gambar.png" width="30px" height="30px" alt="">
+				<img src="img/people.png" width="30px" height="30px" alt="">
 				<div>
 					<h4>Admin</h4>
 					<small>Super Admin</small>
@@ -76,200 +133,9 @@
 
 		</header>
 
-		<main>
-			<div class="cards">
-				<div class="card-single">
-					<div>
-						<h1>54</h1>
-						<span>Customers</span>
-					</div>
-					<div class="">
-						<span class="fa fa-dashboard"></span>
-					</div>
-				</div>
-
-				<div class="card-single">
-					<div>
-						<h1>54</h1>
-						<span>Customers</span>
-					</div>
-					<div class="">
-						<span class="fa fa-dashboard"></span>
-					</div>
-				</div>
-				<div class="card-single">
-					<div>
-						<h1>54</h1>
-						<span>Customers</span>
-					</div>
-					<div class="">
-						<span class="fa fa-dashboard"></span>
-					</div>
-				</div>
-				<div class="card-single">
-					<div>
-						<h1>54</h1>
-						<span>Customers</span>
-					</div>
-					<div class="">
-						<span class="fa fa-dashboard"></span>
-					</div>
-				</div>
-				<div class="card-single">
-					<div>
-						<h1>54</h1>
-						<span>Customers</span>
-					</div>
-					<div class="">
-						<span class="fa fa-dashboard"></span>
-					</div>
-				</div>
-
-				<div class="card-single">
-					<div>
-						<h1>54</h1>
-						<span>Customers</span>
-					</div>
-					<div class="">
-						<span class="fa fa-dashboard"></span>
-					</div>
-				</div>
-
-				<div class="card-single">
-					<div>
-						<h1>54</h1>
-						<span>Customers</span>
-					</div>
-					<div class="">
-						<span class="fa fa-dashboard"></span>
-					</div>
-				</div>
-
-				<div class="card-single">
-					<div>
-						<h1>$54</h1>
-						<span>Customers</span>
-					</div>
-					<div class="">
-						<span class="fa fa-dashboard"></span>
-					</div>
-				</div>
-			</div>
-
-			<div class="recent-grid">
-				<div class="projects">
-					<div class="card">
-						<div class="card-header">
-							<h3>Recent Projects</h3>
-
-							<button>
-								See All
-								<span class="fa fa-arrow-right"></span>
-							</button>
-						</div>
-
-						<div class="card-body">
-							<div class="table-responsive">
-								
-								<table width="100%">
-									<thead>
-										<tr>
-											<td>Project Title</td>
-											<td>Departement</td>
-											<td>Status</td>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>UI / UX Design</td>
-											<td>UI Team</td>
-											<td>
-												<span class="status orange"></span> Review
-											</td>
-										</tr>
-										<tr>
-											<td>Web Development</td>
-											<td>UI Team</td>
-											<td>
-												<span class="status pink"></span> Pending
-											</td>
-										</tr>
-										<tr>
-											<td>Web Admin</td>
-											<td>UI Team</td>
-											<td>
-												<span class="status purple"></span> Link
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="customers">
-					<div class="card">
-						<div class="card-header">
-							<h3>News Customer</h3>
-
-							<button>
-								See All
-								<span class="fa fa-arrow-right"></span>
-							</button>
-						</div>
-
-						<div class="card-body">
-							<div class="customer">
-								<div class="info">
-									<img src="img/gambar.png" width="40px" height="40px" alt="">
-									<div>
-										<h4>Lewis S. Cunni</h4>
-										<small>CEO Expert</small>
-									</div>
-								</div>
-								<div class="contact">
-									<span class="fa fa-dashboard"></span>
-									<span class="fa fa-dashboard"></span>
-									<span class="fa fa-dashboard"></span>
-								</div>
-							</div>
-							<div class="customer"></div>
-							<div class="customer">
-								<div class="info">
-									<img src="img/gambar.png" width="40px" height="40px" alt="">
-									<div>
-										<h4>Lewis S. Cunni</h4>
-										<small>CEO Expert</small>
-									</div>
-								</div>
-								<div class="contact">
-									<span class="fa fa-dashboard"></span>
-									<span class="fa fa-dashboard"></span>
-									<span class="fa fa-dashboard"></span>
-								</div>
-							</div>
-							<div class="customer">
-								<div class="info">
-									<img src="img/gambar.png" width="40px" height="40px" alt="">
-									<div>
-										<h4>Lewis S. Cunni</h4>
-										<small>CEO Expert</small>
-									</div>
-								</div>
-								<div class="contact">
-									<span class="fa fa-dashboard"></span>
-									<span class="fa fa-dashboard"></span>
-									<span class="fa fa-dashboard"></span>
-								</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
-
-		</main>
+		<?php
+            require 'link/halaman.php';
+        ?>
 	</div>
 
 </body>
