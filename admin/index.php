@@ -1,3 +1,12 @@
+<?php
+	session_start();
+
+	if (!isset($_SESSION['login'])) {
+		echo "<script>alert('Login Dahulu');</script>";
+		echo "<script>window.location.replace('../login/login.php');</script>";
+		exit;
+	}
+?>
 <!DOCTYPE html>
 <html>
 <head>
