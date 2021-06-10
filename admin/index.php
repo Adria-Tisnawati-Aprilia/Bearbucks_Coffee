@@ -102,7 +102,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="">
+					<a href="?page=users">
 						<span class="fa fa-users"></span>
 						<span> Users </span>
 					</a>

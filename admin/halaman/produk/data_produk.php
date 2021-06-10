@@ -7,6 +7,7 @@
 					</div>
                     <div class="card-body">
                         <input type="hidden" id="id_produk">
+                        <input type="hidden" id="gambar_lama">
                         <label for="nama_kategori"> Nama Kategori </label>
                         <select id="id_kategori" class="form-control">
                             <option value="">- Pilih -</option>
@@ -18,16 +19,22 @@
                         <br><br>
 
                         <label for="nama_kategori"> Harga </label>
-                        <input type="text" class="form-control" id="harga" placeholder="Masukkan Harga Produk" autocomplete="off">
+                        <input type="number" class="form-control" id="harga" placeholder="Masukkan Harga Produk" autocomplete="off">
                         <br><br>
 
                         <label for="nama_kategori"> Deskripsi </label>
-                        <input type="text" class="form-control" id="deskripsi" placeholder="Masukkan Deskripsi" autocomplete="off">
+                        <textarea name="" id="deskripsi" class="form-control" cols="30" rows="10"></textarea>
+                        
                         <br><br>
 
-                        <label for="nama_kategori"> Gambar </label>
-                        <input type="file" class="form-control" id="gambar" placeholder="Masukkan Gambar">
+                        <label for="image"> Gambar Produk </label>
+                        <div id="ambil_gambar"></div>
                         <br><br>
+                        
+                        <label for="nama_kategori"> Gambar </label>
+                        <input type="file" class="form-control" id="foto" placeholder="Masukkan Gambar">
+                        <br><br>
+
                         <button class="btn-primary" id="btn" onclick="insert()">
                             <i class="fa fa-plus"></i> Tambah
                         </button>
@@ -54,9 +61,9 @@
 									<thead>
 										<tr>
 											<td width="10%">No.</td>
-                                            <td width="30%">Nama Produk</td>
-                                            <td>Harga</td>
-                                            <td>Gambar</td>
+                                            <td width="20%">Nama Produk</td>
+                                            <td width="15%">Harga</td>
+                                            <td width="25%" style="padding-left: 70px;">Gambar</td>
 											<td width="100%" style="padding-left: 120px;">Aksi</td>
 										</tr>
 									</thead>
@@ -97,13 +104,13 @@
                         let nomer = NewRow.insertCell(0); 
                         let nama = NewRow.insertCell(1);
                         let harga = NewRow.insertCell(2);
-                        let gambar = NewRow.insertCell(3);
+                        let foto = NewRow.insertCell(3);
                         let aksi_cell = NewRow.insertCell(4);
 
                         nomer.innerHTML = val['no'];
                         nama.innerHTML = val['nama'];
                         harga.innerHTML = val['harga'];
-                        gambar.innerHTML = val['foto'];
+                        foto.innerHTML = '<img style="margin-left: 20%;" width="100" src="image/'+val['foto']+'">';
                         aksi_cell.innerHTML = '<div style="padding-left: 50px;"> <button class="btn-warning" onclick="edit('+ val['id_produk'] +')" id="btn_edit"><i class="fa fa-pencil"></i> Edit</button>  <button class="btn-danger" onclick="hapus('+ val['id_produk'] +')"><i class="fa fa-trash-o"></i> Hapus</button> </div>'; 
                         
                     }
@@ -142,34 +149,45 @@
         let id_kategori  = document.getElementById('id_kategori').value;
         let nama = document.getElementById('nama').value;
         let harga = document.getElementById('harga').value;
+        let files = document.getElementById('foto').files;
         let deskripsi = document.getElementById('deskripsi').value;
 
-        if(nama != ''){
+        if (files.length > 0) {
+            let formData = new FormData();
 
-            let data = { id_kategori : id_kategori, nama : nama, harga : harga, deskripsi : deskripsi };
+            formData.append("foto", files[0]);
+            formData.append("id_kategori", id_kategori);
+            formData.append("nama", nama);
+            formData.append("harga", harga);
+            formData.append("deskripsi", deskripsi);
+
             let xhttp = new XMLHttpRequest();
+
             xhttp.open("POST", "http://localhost/Bearbucks_Coffee/admin/halaman/produk/fileAjax.php?request=2", true);
 
-            xhttp.onreadystatechange = function() {
+            xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
-
                     let response = this.responseText;
-                    if(response == 1){
-                        alert("Insert successfully.");
+
+                    if (response == 1) {
+                        alert("Upload Sukses");
 
                         load();
 
                         document.getElementById("id_kategori").value = "";
-                        document.getElementById("nama").value="";
-                        document.getElementById("harga").value="";
-                        document.getElementById("deskripsi").value="";
+                        document.getElementById("nama").value = "";
+                        document.getElementById("harga").value = "";
+                        document.getElementById("deskripsi").value = "";
+                        document.getElementById("foto").value = "";
+
+                    } else {
+                        alert("Upload Gagal");
                     }
                 }
             };
 
-        xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.send(formData);
 
-        xhttp.send(JSON.stringify(data));
         }
 
     }
@@ -179,6 +197,7 @@
         let harga = document.getElementById('harga');
         let deskripsi = document.getElementById('deskripsi');
         let id_kategori = document.getElementById('id_kategori');
+        let ambil_gambar = document.getElementById("ambil_gambar");
         let btn = document.getElementById('btn');
         let btn_edit = document.getElementById('btn_edit');
         let btn_update = document.getElementById('btn_update');
@@ -204,6 +223,12 @@
                         nama.value = val['nama'];
                         harga.value = val['harga'];
                         deskripsi.value = val['deskripsi'];
+                        if (val['foto'] == "") {
+                            document.getElementById("ambil_gambar").value = '1';
+                        } else {
+                            document.getElementById("gambar_lama").value = val['foto'];
+                            document.getElementById("ambil_gambar").innerHTML = '<img id="foto" width="100" src="image/'+val['foto']+'">';
+                        }
                         document.getElementById("id_produk").value = val['id_produk'];
 
                     }
@@ -243,47 +268,55 @@
 
     function update() {
 
-        let id_produk = document.getElementById('id_produk').value;
-        let id_kategori = document.getElementById('id_kategori').value;
-        let nama = document.getElementById('nama').value;
-        let harga = document.getElementById('harga').value;
-        let deskripsi = document.getElementById('deskripsi').value;
-        
-        let btn = document.getElementById('btn');
-        let btn_edit = document.getElementById('btn_edit');
-        let btn_update = document.getElementById('btn_update');
+    let id_produk = document.getElementById('id_produk').value;
+    let id_kategori  = document.getElementById('id_kategori').value;
+    let nama = document.getElementById('nama').value;
+    let harga = document.getElementById('harga').value;
+    let files = document.getElementById('foto').files;
+    let gambar_lama = document.getElementById('gambar_lama').value;
+    let deskripsi = document.getElementById('deskripsi').value;
 
-        if(id_produk != ''){
+    if (files.length > 0) {
+        let formData = new FormData();
 
-        let data = { id_produk : id_produk, id_kategori : id_kategori, nama : nama, harga : harga, deskripsi : deskripsi };
+        formData.append("foto", files[0]);
+        formData.append("id_produk", id_produk);
+        formData.append("id_kategori", id_kategori);
+        formData.append("nama", nama);
+        formData.append("harga", harga);
+        formData.append("deskripsi", deskripsi);
+        formData.append("gambar_lama", gambar_lama);
+
         let xhttp = new XMLHttpRequest();
+
         xhttp.open("POST", "http://localhost/Bearbucks_Coffee/admin/halaman/produk/fileAjax.php?request=5", true);
 
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
+        xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            let response = this.responseText;
 
-                var response = this.responseText;
-                if(response == 1){
-                    alert("Update successfully.");
+            if (response == 1) {
+                alert("Upload Sukses");
 
-                    load();
+                load();
 
-                    document.getElementById("id_kategori").value = "";
-                    document.getElementById("nama").value = "";
-                    document.getElementById("harga").value = "";
-                    document.getElementById("deskripsi").value = "";
+                document.getElementById("id_kategori").value = "";
+                document.getElementById("nama").value = "";
+                document.getElementById("harga").value = "";
+                document.getElementById("deskripsi").value = "";
+                document.getElementById("foto").value = "";
 
-                    btn.hidden = false;
-                    btn_update.hidden = true;
-                }
+            } else {
+                alert("Upload Gagal");
             }
-        };
-
-        xhttp.setRequestHeader("Content-Type", "application/json");
-
-        xhttp.send(JSON.stringify(data));
         }
-    }
+    };
+
+    xhttp.send(formData);
+
+}
+
+}
 
     
 </script>

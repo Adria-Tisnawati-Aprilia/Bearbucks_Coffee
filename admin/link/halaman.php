@@ -20,6 +20,9 @@
             include "halaman/produk/data_produk.php";
             break;
         
+        case 'users':
+            include "halaman/users/users.php";
+            break;
         default:
             echo "404 Not Found";
             break;
