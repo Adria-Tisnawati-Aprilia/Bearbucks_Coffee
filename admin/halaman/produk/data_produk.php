@@ -27,9 +27,8 @@
                         
                         <br><br>
 
-                        <label for="image"> Gambar Produk </label>
+                        <label for="image" id="label_gambar" hidden> Gambar Produk </label>
                         <div id="ambil_gambar"></div>
-                        <br><br>
                         
                         <label for="nama_kategori"> Gambar </label>
                         <input type="file" class="form-control" id="foto" placeholder="Masukkan Gambar">
@@ -198,10 +197,12 @@
         let deskripsi = document.getElementById('deskripsi');
         let id_kategori = document.getElementById('id_kategori');
         let ambil_gambar = document.getElementById("ambil_gambar");
+        let label_gambar = document.getElementById("label_gambar");
         let btn = document.getElementById('btn');
         let btn_edit = document.getElementById('btn_edit');
         let btn_update = document.getElementById('btn_update');
         
+        label_gambar.hidden = false;
         btn.hidden = true;
         btn_update.hidden = false;
 
@@ -227,7 +228,7 @@
                             document.getElementById("ambil_gambar").value = '1';
                         } else {
                             document.getElementById("gambar_lama").value = val['foto'];
-                            document.getElementById("ambil_gambar").innerHTML = '<img id="foto" width="100" src="image/'+val['foto']+'">';
+                            document.getElementById("ambil_gambar").innerHTML = '<img width="100" src="image/'+val['foto']+'">';
                         }
                         document.getElementById("id_produk").value = val['id_produk'];
 
@@ -268,54 +269,48 @@
 
     function update() {
 
-    let id_produk = document.getElementById('id_produk').value;
-    let id_kategori  = document.getElementById('id_kategori').value;
-    let nama = document.getElementById('nama').value;
-    let harga = document.getElementById('harga').value;
-    let files = document.getElementById('foto').files;
-    let gambar_lama = document.getElementById('gambar_lama').value;
-    let deskripsi = document.getElementById('deskripsi').value;
+        let id_produk = document.getElementById('id_produk').value;
+        let id_kategori = document.getElementById('id_kategori').value;
+        let nama = document.getElementById('nama').value;
+        let harga = document.getElementById('harga').value;
+        let deskripsi = document.getElementById('deskripsi').value;
+        let gambar_lama = document.getElementById('gambar_lama').value;
+        let files = document.getElementById('foto').files;
 
-    if (files.length > 0) {
-        let formData = new FormData();
+        if (files.length > 0) {
+            let formData = new FormData();
 
-        formData.append("foto", files[0]);
-        formData.append("id_produk", id_produk);
-        formData.append("id_kategori", id_kategori);
-        formData.append("nama", nama);
-        formData.append("harga", harga);
-        formData.append("deskripsi", deskripsi);
-        formData.append("gambar_lama", gambar_lama);
+            formData.append("foto", files[0]);
+            formData.append("id_produk", id_produk);
+            formData.append("id_kategori", id_kategori);
+            formData.append("nama", nama);
+            formData.append("harga", harga);
+            formData.append("deskripsi", deskripsi);
+            formData.append("gambar_lama", gambar_lama);
+            //formData.append("gambar_lama", gambar_lama);
 
-        let xhttp = new XMLHttpRequest();
+            let xhttp = new XMLHttpRequest();
 
-        xhttp.open("POST", "http://localhost/Bearbucks_Coffee/admin/halaman/produk/fileAjax.php?request=5", true);
+            xhttp.open("POST", "http://localhost/Bearbucks_Coffee/admin/halaman/produk/fileAjax.php?request=5", true);
 
-        xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            let response = this.responseText;
+            xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let response = this.responseText;
 
-            if (response == 1) {
-                alert("Upload Sukses");
+                if (response == 1) {
+                    alert("Upload Sukses");
 
-                load();
+                    load();
 
-                document.getElementById("id_kategori").value = "";
-                document.getElementById("nama").value = "";
-                document.getElementById("harga").value = "";
-                document.getElementById("deskripsi").value = "";
-                document.getElementById("foto").value = "";
-
-            } else {
-                alert("Upload Gagal");
+                } else {
+                    alert("Upload Gagal");
+                }
             }
-        }
-    };
+        };
 
-    xhttp.send(formData);
+        xhttp.send(formData);
 
-}
-
+    }
 }
 
     

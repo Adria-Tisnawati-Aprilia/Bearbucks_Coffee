@@ -120,21 +120,59 @@ if ($request == 4) {
 }
 
 if ($request == 5) {
-	$data = json_decode(file_get_contents("php://input"));
+	$id_produk = $_POST['id_produk'];
+	$id_kategori = $_POST['id_kategori'];
+	$nama = $_POST['nama'];
+	$harga = $_POST['harga'];
+	$deskripsi = $_POST['deskripsi'];
+	$gambar_lama = $_POST['gambar_lama'];
 
-    $id_produk = $data->id_produk;
-	$id_kategori = $data->id_kategori;
-	$nama = $data->nama;
-    $harga = $data->harga;
-    $deskripsi = $data->deskripsi;
+	$sql = $con->query("SELECT * FROM tb_produk WHERE id_produk = $id_produk ");
+	$data = $sql->fetch_array();
+	$fotoGambar = $data['foto'];
+	
+	
+	if ($_FILES['foto']['error'] === 4) {
+		$foto = $gambar_lama;
+	} else {
+		if ($fotoGambar != NULL) {
+			if (file_exists("../../image/".$gambar_lama)) {
+				unlink("../../image/".$gambar_lama);
+			}
+		}
+		
+		$namafile = $_FILES['foto']['name'];
+		$ukuranfile = $_FILES['foto']['size'];
+		$error = $_FILES['foto']['error'];
+		$tmpname = $_FILES['foto']['tmp_name'];
 
-	$sql = $con->query("UPDATE tb_produk SET id_kategori = '$id_kategori', nama = '$nama', harga = '$harga', deskripsi = '$deskripsi' WHERE id_produk = $id_produk");
+		$ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+		$ekstensiGambar = explode('.', $namafile);
+		$ekstensiGambar = strtolower(end($ekstensiGambar));
 
-	if($sql){
-	    echo 1; 
-	}else{
-	    echo 0;
+		$namafilebaru = uniqid();
+		$namafilebaru .= '.';
+		$namafilebaru .= $ekstensiGambar;
+		
 	}
+
+	if (!empty($tmpname)) {
+		move_uploaded_file($tmpname, '../../image/'.$namafilebaru);
+
+		$response = 0;
+
+		$query = $con->query("UPDATE tb_produk SET id_kategori = '$id_kategori', nama = '$nama', harga = '$harga', deskripsi = '$deskripsi', foto = '$namafilebaru' WHERE id_produk = '$id_produk' ");
+	} else {
+		$response = 0;
+
+		$query = $con->query("UPDATE tb_produk SET id_kategori = '$id_kategori', nama = '$nama', harga = '$harga', deskripsi = '$deskripsi' WHERE id_produk = '$id_produk' ");
+	}
+
+	if ($query != 0) {
+		$response = 1;
+	}
+
+	echo $response;
 
 	exit;
 }
