@@ -19,10 +19,27 @@
         case 'produk':
             include "halaman/produk/data_produk.php";
             break;
+
+        case 'pelanggan':
+            include "halaman/pelanggan/data_pelanggan.php";
+            break;    
+
+        case 'pembayaran':
+            include "halaman/pembayaran/pembayaran.php";
+            break;
+        
+        case 'laporan':
+            include "halaman/laporan/laporan.php";
+            break;
         
         case 'users':
             include "halaman/users/users.php";
             break;
+
+        case 'logout' :
+            include "../login/logout.php";
+            break;
+
         default:
             echo "404 Not Found";
             break;

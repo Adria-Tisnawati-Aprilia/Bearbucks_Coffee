@@ -11,51 +11,67 @@
 
     switch ($page) {
         case 'dashboard':
-            include 'page/dashboard.html';
+            include 'page/dashboard.php';
             break;
 
-            //produk
-            case 'produk':
-                include 'page/produk/data_produk.php';
-                break;
+        case 'beli':
+            include 'page/beli.php';
+            break;
 
-            //kategori
-            case 'kategori':
-                include 'page/kategori/data_kategori.php';
-                break;
+        case 'menu':
+            include 'page/menu.php';
+            break;
 
-            case 'tampil' :
-                include 'page/kategori/tampil.php';
-                break;
+        case 'keranjang':
+            include 'page/keranjang.php';
+            break;
 
-            case 'insert':
-                include 'page/kategori/insert.php';
-                break;
+        case 'hapus_keranjang':
+            include 'page/hapus_keranjang.php';
+            break;
 
-            case 'tambah-kategori':
-                include 'page/kategori/tambah-kategori.php';
-                break;
+        case 'hapus_keranjang_checkout' :
+            include 'page/hapus_keranjang_checkout.php';
+            break;
 
-            case 'edit-kategori':
-                include 'page/kategori/edit-kategori.php';
-                break;
+        case 'checkout':
+            include 'page/checkout.php';
+            break;
 
-            case 'menu';
-                include 'page/menu.php';
-                break;
+        case 'login':
+            include 'page/login.php';
+            break;
 
-            //pembelian
-            case 'pembelian':
-                include 'page/pembelian/data_pembelian.php';
-                break;
+        case 'profil':
+            include 'page/profil.php';
+            break;
 
-            //keranjang
-            case 'keranjang':
-                include 'page/keranjang';
-                break;
+        case 'daftar':
+            include 'page/daftar.php';
+            break;
 
-            default:
-                echo "404 Not Found";
-                break;
+        case 'checkout':
+            include 'page/checkout.php';
+            break;
+
+        case 'nota':
+            include 'page/nota.php';
+            break;
+
+        case 'logout':
+            include 'page/logout.php';
+            break;
+
+        case 'detail_pesanan':
+            include 'page/detail_pesanan.php';
+            break;
+
+        case 'riwayat':
+            include 'page/riwayat.php';
+            break;
+
+        default:
+            echo "404 Not Found";
+            break;
     }
 ?>

@@ -3,7 +3,8 @@
     <div class="projects">
     <div class="card" style="background-color: white;">
 					<div class="card-header">
-                        <h3><i class="fa fa-plus"></i> Tambah Users</h3>
+                        <h3 id="label_tambah"><i class="fa fa-plus"></i> Tambah Users</h3>
+                        <h3 id="label_update" hidden><i class="fa fa-plus"></i> Edit Users</h3>
 					</div>
                     <div class="card-body">
                         <input type="hidden" id="id_users">
@@ -139,10 +140,14 @@
 
     function edit(id_users) {
         let username = document.getElementById('username');
+        let label_tambah = document.getElementById('label_tambah');
+        let label_update = document.getElementById('label_update');
         let btn = document.getElementById('btn');
         let btn_edit = document.getElementById('btn_edit');
         let btn_update = document.getElementById('btn_update');
         
+        label_tambah.hidden = true;
+        label_update.hidden = false;
         btn.hidden = true;
         btn_update.hidden = false;
 
@@ -207,6 +212,8 @@
         let btn = document.getElementById('btn');
         let btn_edit = document.getElementById('btn_edit');
         let btn_update = document.getElementById('btn_update');
+        let label_tambah = document.getElementById('label_tambah');
+        let label_update = document.getElementById('label_update');
 
         if(username != '' && password != ''){
 
@@ -226,6 +233,8 @@
                     document.getElementById("username").value="";
                     document.getElementById("password").value="";
 
+                    label_tambah.hidden = false;
+                    label_update.hidden = true;
                     btn.hidden = false;
                     btn_update.hidden = true;
                 }

@@ -6,6 +6,8 @@
 		echo "<script>window.location.replace('../login/login.php');</script>";
 		exit;
 	}
+
+	include 'koneksi/koneksi.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -96,9 +98,21 @@
 					</a>
 				</li>
 				<li>
-					<a href="?page=">
+					<a href="?page=pelanggan">
+						<span class="fa fa-user"></span>
+						<span>Pelanggan </span>
+					</a>
+				</li>
+				<li>
+					<a href="?page=pembayaran">
 						<span class="fa fa-money"></span>
 						<span> Pembayaran </span>
+					</a>
+				</li>
+				<li>
+					<a href="?page=laporan">
+						<span class="fa fa-book"></span>
+						<span> Laporan </span>
 					</a>
 				</li>
 				<li>
@@ -108,7 +122,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="">
+					<a href="?page=logout">
 						<span class="fa fa-sign-out"></span>
 						<span> Log Out </span>
 					</a>

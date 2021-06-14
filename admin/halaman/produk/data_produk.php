@@ -3,7 +3,8 @@
     <div class="projects">
     <div class="card" style="background-color: white;">
 					<div class="card-header">
-                        <h3><i class="fa fa-plus"></i> Tambah Produk</h3>
+                        <h3 id="label_tambah"><i class="fa fa-plus"></i> Tambah Produk</h3>
+                        <h3 id="label_update" hidden><i class="fa fa-plus"></i> Edit Produk</h3>
 					</div>
                     <div class="card-body">
                         <input type="hidden" id="id_produk">
@@ -27,6 +28,11 @@
                         
                         <br><br>
 
+                        <div id="t_gambar">
+                            <label for="image" id="label_gambar" hidden> Gambar Produk </label>
+                            <div id="ambil_gambar"></div>
+                        </div>
+                        
                         <label for="image" id="label_gambar" hidden> Gambar Produk </label>
                         <div id="ambil_gambar"></div>
                         
@@ -198,10 +204,14 @@
         let id_kategori = document.getElementById('id_kategori');
         let ambil_gambar = document.getElementById("ambil_gambar");
         let label_gambar = document.getElementById("label_gambar");
+        let label_tambah = document.getElementById('label_tambah');
+        let label_update = document.getElementById('label_update');
         let btn = document.getElementById('btn');
         let btn_edit = document.getElementById('btn_edit');
         let btn_update = document.getElementById('btn_update');
         
+        label_tambah.hidden = true;
+        label_update.hidden = false;
         label_gambar.hidden = false;
         btn.hidden = true;
         btn_update.hidden = false;
@@ -276,6 +286,9 @@
         let deskripsi = document.getElementById('deskripsi').value;
         let gambar_lama = document.getElementById('gambar_lama').value;
         let files = document.getElementById('foto').files;
+        let label_tambah = document.getElementById('label_tambah');
+        let label_update = document.getElementById('label_update');
+        let t_gambar = document.getElementById('t_gambar');
 
         if (files.length > 0) {
             let formData = new FormData();
@@ -301,6 +314,21 @@
                     alert("Upload Sukses");
 
                     load();
+
+                    
+
+                    document.getElementById("id_kategori").value="";
+                    document.getElementById("nama").value="";
+                    document.getElementById("harga").value="";
+                    document.getElementById("deskripsi").value="";
+                    document.getElementById("foto").value="";
+
+                    t_gambar.hidden = true;
+                    label_tambah.hidden = false;
+                    label_update.hidden = true;
+                    btn.hidden = false;
+                    btn_update.hidden = true;
+
 
                 } else {
                     alert("Upload Gagal");
